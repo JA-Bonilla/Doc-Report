@@ -3,7 +3,7 @@ Through the use of LLM's users are able to talk to their personal or company fil
 
 This was built with [privateGPT](https://github.com/imartinez/privateGPT), [GPT4ALL](https://github.com/nomic-ai/gpt4all), [Langchain](https://github.com/hwchase17/langchain), [LlamaCpp](https://github.com/ggerganov/llama.cpp), [Tkinter-Designer](https://github.com/ParthJadhav/Tkinter-Designer), [Chromadb](https://www.trychroma.com/), [SentenceTransformers](https://www.sbert.net/), [Figma](www.figma.com), and [PDF2Image](https://pdf2image.readthedocs.io/en/latest/index.html).
 
-![Screenshot of Doc-Report Output](/init/GUI.png)
+![Screenshot of Doc-Report Output](/init/Doc-Report.png)
 
 # Enviorment Setup
 Due to the way Langchain loads SentenceTransformers an internet connection is required the first time `Gui.Py` is run.
@@ -39,6 +39,8 @@ Avg Time for Response Generation: 1:41 Mins (101 Seconds)
 -----------------------------------------
 
 # Ingestion 
+Uploaded documents, specifically PDF's, must be readable (Optical Character Recognition (OCR) funcionality must be applicable).
+
 When running `Gui.py` click upload and a filedialog will open, requesting you to select a file. The default chosen document is PDF, however you can change the file type to the following:
 
 - PDF File        (.PDF)
