@@ -6,9 +6,11 @@ This was built with [privateGPT](https://github.com/imartinez/privateGPT), [GPT4
 ![Screenshot of Doc-Report Output](/init/Doc-Report.png)
 
 # Enviorment Setup
+Download the LLM from GPT4ALL, the default model in the enviorment file is [ggml-gpt4all-j-v1.3-groovy.bin](https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin). Place the model into the `/utils/models folder.` Please note if you would like to use another model, be sure to change the `.env` file.
+
 Due to the way Langchain loads SentenceTransformers an internet connection is required the first time `Gui.Py` is run.
 
-In order to set your environment up to run the code here, first install all requirements:
+In order to set your environment up to run the code here, first install all requirements using:
 `pip install -r requirements.txt`
 
 In the Utils folder you will need to delete the name of the `enviorment.env` file so that you are left with just `.env`
