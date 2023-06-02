@@ -1,7 +1,7 @@
 # Doc-Report
 Through the use of LLM's users are able to talk to their personal or company files to review documents quicker, find specific information, and generate reference based summaries, without the worry of data leaks. It runs off your computer!
 
-This was built with [privateGPT](https://github.com/imartinez/privateGPT), [GPT4ALL](https://github.com/nomic-ai/gpt4all), [Langchain](https://github.com/hwchase17/langchain), [LlamaCpp](https://github.com/ggerganov/llama.cpp), [Tkinter-Designer](https://github.com/ParthJadhav/Tkinter-Designer), [Chromadb](https://www.trychroma.com/), [SentenceTransformers](https://www.sbert.net/), [Figma](www.figma.com), and [PDF2Image](https://pdf2image.readthedocs.io/en/latest/index.html).
+This was built with [privateGPT](https://github.com/imartinez/privateGPT), [GPT4ALL](https://github.com/nomic-ai/gpt4all), [Langchain](https://github.com/hwchase17/langchain), [LlamaCpp](https://github.com/ggerganov/llama.cpp), [Tkinter-Designer](https://github.com/ParthJadhav/Tkinter-Designer), [Chroma](https://www.trychroma.com/), [SentenceTransformers](https://www.sbert.net/), [Figma](www.figma.com), and [PDF2Image](https://pdf2image.readthedocs.io/en/latest/index.html).
 
 ![Screenshot of Doc-Report Output](/init/Doc-Report.png)
 
@@ -40,6 +40,24 @@ Avg Time for Ingest Preperation: 0:32 Mins (32 Seconds)
 
 Avg Time for Response Generation: 1:41 Mins (101 Seconds)
 
+## Windows C++ Compiler
+
+If you encounter an error while building a wheel during the `pip install` process, you may need to install a C++ compiler on your computer.
+
+To install a C++ compiler on Windows 10/11, follow these steps:
+1. Install Visual Studio 2022.
+2. Make sure the following components are selected:
+    - Universal Windows Platform development
+    - C++ CMake tools for Windows
+3. Download the MinGW installer from the [MinGW website](https://sourceforge.net/projects/mingw/).
+4. Run the installer and select the gcc component.
+
+## Mac with Intel CPU
+
+When running a Mac with Intel hardware (not M1), you may run into clang: error: the clang compiler does not support '-march=native' during pip install.
+
+If so set your archflags during pip install. eg: `ARCHFLAGS="-arch x86_64" pip3 install -r requirements.txt`
+
 -----------------------------------------
 
 # Ingestion 
@@ -61,14 +79,6 @@ As documents are being ingested, a photo of the document will appear on the righ
 Once a question has been typed the user clicks the Generate button and your computer will begin to upload the AI model and process the data to generate an appropriate response for the user. Please note that this program can only run as fast as your computer's CPU can proccess. 
 
 View System Requirements for average time info.
-
------------------------------------------
-
-# Mac with Intel CPU
-
-When running a Mac with Intel hardware (not M1), you may run into clang: error: the clang compiler does not support '-march=native' during pip install.
-
-If so set your archflags during pip install. eg: `ARCHFLAGS="-arch x86_64" pip3 install -r requirements.txt`
 
 -----------------------------------------
 
