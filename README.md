@@ -11,6 +11,8 @@ Due to the way Langchain loads SentenceTransformers an internet connection is re
 In order to set your environment up to run the code here, first install all requirements:
 `pip install -r requirements.txt`
 
+In the Utils folder you will need to delete the name of the `enviorment.env` file so that you are left with just `.env`
+
 -----------------------------------------
 
 # System Requirements
