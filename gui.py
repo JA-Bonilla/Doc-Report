@@ -26,14 +26,6 @@ from dotenv import find_dotenv, load_dotenv
 import utils.AI
 import utils.ingest
 
-import aspose.words as aw
-
-import  jpype     
-import  asposecells
-
-import aspose.slides as slides
-import aspose.pydrawing as drawing
-
 iterate = 0
 pdf_fl = 0
 Page = 0
@@ -43,10 +35,11 @@ OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path(r".\assets")
 SOURCE_PATH = OUTPUT_PATH / Path(r".\utils\source_documents")
 INGEST_PATH = OUTPUT_PATH / Path(r".\utils\db")
+UTILS_PATH = OUTPUT_PATH / Path(r".\utils")
 INDEX_PATH = OUTPUT_PATH / Path(r".\utils\db\index")
 JPG_PATH = OUTPUT_PATH / Path(r".\images")
-
-poppler_path = r".\poppler-23.05.0\Library\bin"
+ICON_PATH = OUTPUT_PATH / Path(r"icon.ico")
+POPPLER_PATH = OUTPUT_PATH / Path(r".\poppler-23.05.0\Library\bin")
 
 load_dotenv(find_dotenv())
 
@@ -63,6 +56,9 @@ def relative_to_assets(path: str) -> Path:
 
 def relative_to_images(path: str) -> Path:
     return JPG_PATH / Path(path)
+
+def relative_to_utils(path: str) -> Path:
+    return UTILS_PATH / Path(path)
 
 
 def iteration():
@@ -99,7 +95,7 @@ def Upload_Clicked():
 
     shutil.copy(load_path, SOURCE_PATH)
 
-    subprocess.run(["python", "utils\ingest.py"])
+    subprocess.run(["python", relative_to_utils("ingest.py")])
 
     for f in os.listdir(SOURCE_PATH):
         os.remove(os.path.join(SOURCE_PATH, f))
@@ -146,14 +142,6 @@ def conv_JPG():
     if ".pdf" in m_FileName:
         PDF2IMG()
         disp_PDF()
-    elif ".csv" in m_FileName:
-        asposeCSV()
-    elif ".docx" in m_FileName:
-        asposeDOC()
-    elif ".pptx" in m_FileName:
-        asposePPT()
-    elif ".txt" in m_FileName:
-        asposeTXT()
 
 def disp_PDF():
     global pdf
@@ -163,14 +151,14 @@ def disp_PDF():
     
 def PDF2IMG():
     
-    images = convert_from_path(load_path, output_folder=r".\images", dpi=500, poppler_path=poppler_path) #size=(552.5,715)
+    images = convert_from_path(load_path, output_folder=JPG_PATH, dpi=500, poppler_path=POPPLER_PATH) #size=(552.5,715)
 
     for i in range(len(images)):
         # Save pages as images in the pdf
-        images[i].save(f'.\images\Output_'+ str(i) +'.png', 'png')
-        output = Image.open(f'.\images\Output_'+ str(i) +'.png')
+        images[i].save(relative_to_images(f'Output_'+ str(i) +'.png'), 'png')
+        output = Image.open(relative_to_images(f'Output_'+ str(i) +'.png'))
         new_out = output.resize((552, 715), Image.ANTIALIAS)
-        new_out.save(f'.\images\Output_new_'+ str(i) +'.png', format='png')
+        new_out.save(relative_to_images(f'Output_new_'+ str(i) +'.png'), format='png')
     
 def Right_Clicked():
     global pdf, Page
@@ -191,51 +179,12 @@ def Left_Clicked():
     window.update()
 
 
-def asposeCSV():
-    jpype.startJVM()
-    from asposecells.api import Workbook
-    workbook = Workbook(load_path)
-    workbook.save("Output.jpg")
-    jpype.shutdownJVM()
-
-def asposeDOC():
-    doc = aw.Document(load_path)
-          
-    for page in range(0, doc.page_count):
-        extractedPage = doc.extract_pages(page, 1)
-        extractedPage.save(f"Output_{page + 1}.jpg")
-
-def asposePPT():
-    pres = slides.Presentation(load_path)
-
-    for index in range(pres.slides.length):
-        # Get reference of slide
-        slide = pres.slides[index]
-
-        # Save as JPG
-        slide.get_thumbnail().save("slide_{i}.jpg".format(i = index), drawing.imaging.ImageFormat.jpeg)
-
-def asposeTXT():
-    doc = aw.Document(Input.txt)
-          
-    for page in range(0, doc.page_count):
-        extractedPage = doc.extract_pages(page, 1)
-        extractedPage.save(f"Output_{page + 1}.jpg")
-
-
-
-
-
-
-
-
-
 window = Tk()
 
 window.geometry("1080x900")
 window.configure(bg = "#3B3B3B")
 window.title("Doc-Report")
-window.iconbitmap(r".\ICON.ico")
+window.iconbitmap(ICON_PATH)
 
 canvas = Canvas(
     window,
